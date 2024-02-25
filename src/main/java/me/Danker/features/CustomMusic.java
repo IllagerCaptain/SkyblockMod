@@ -32,6 +32,7 @@ public class CustomMusic {
     public static Song dungeonboss;
     public static Song bloodroom;
     public static Song dungeon;
+    public static Song phase1;
     public static Song phase2;
     public static Song phase3;
     public static Song phase4;
@@ -85,6 +86,9 @@ public class CustomMusic {
                             if (ModConfig.dungeonBossMusic) {
                                 switch (curPhase) {
                                     case -1:
+                                        break;
+                                    case 1:
+                                        phase1.start();
                                         break;
                                     case 2:
                                         phase2.start();
@@ -166,7 +170,10 @@ public class CustomMusic {
 
         if (Utils.isInDungeons()) {
             if (ModConfig.dungeonBossMusic) {
-                if (phase2.hasSongs() && message.startsWith("[BOSS] Storm: Pathetic Maxor")) {
+                if (phase1.hasSongs() && message.startsWith("[BOSS] Maxor: WELL WELL WELL LOOK WHO’S HERE!")) {
+                    phase1.start();
+                    curPhase = 1;
+                } else if (phase3.hasSongs() && message.startsWith("[BOSS] Storm: Pathetic Maxor")) {
                     phase2.start();
                     curPhase = 2;
                 } else if (phase3.hasSongs() && message.startsWith("[BOSS] Goldor: Who dares trespass into my domain?")) {
@@ -221,6 +228,7 @@ public class CustomMusic {
         dungeonboss = new Song(directory, "dungeonboss", ModConfig.dungeonBossVolume);
         bloodroom = new Song(directory, "bloodroom", ModConfig.bloodRoomVolume);
         dungeon = new Song(directory, "dungeon", ModConfig.dungeonVolume);
+        phase1 = new Song(directory, "phaseone", ModConfig.phase2Volume);
         phase2 = new Song(directory, "phasetwo", ModConfig.phase2Volume);
         phase3 = new Song(directory, "phasethree", ModConfig.phase3Volume);
         phase4 = new Song(directory, "phasefour", ModConfig.phase4Volume);
@@ -245,6 +253,7 @@ public class CustomMusic {
         if (dungeonboss != null) dungeonboss.stop();
         if (bloodroom != null) bloodroom.stop();
         if (dungeon != null) dungeon.stop();
+        if (phase1 != null) phase1.stop();
         if (phase2 != null) phase2.stop();
         if (phase3 != null) phase3.stop();
         if (phase4 != null) phase4.stop();
